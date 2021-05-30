@@ -9,6 +9,9 @@ class TopicsController < ApplicationController
     @topic = Topic.new
   end
 
+  def show
+  end
+
   def edit
   end
 
@@ -24,15 +27,11 @@ class TopicsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @topic.update(topic_params)
-        format.html { redirect_to @topic, notice: "Topic was successfully updated." }
-        format.json { render :show, status: :ok, location: @topic }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @topic.errors, status: :unprocessable_entity }
-      end
-    end
+    if @topic.update(topic_params)
+      redirect_to topics_path, success: '編集に成功しました'
+    else
+      render :edit
+    end 
   end
 
   def destroy
@@ -50,7 +49,7 @@ class TopicsController < ApplicationController
   end
 
   def topic_params
-    params.require(:topic).permit(:image, :description, :tag)
+    params.require(:topic).permit(:user_id, :title, :image, :description, :tag)
   end
 
 end

@@ -2,7 +2,7 @@ class TopicsController < ApplicationController
   before_action :set_topic, only: %i[ show edit update destroy ]
 
   def index
-    @topics = Topic.all
+    @topics = Topic.all.includes(:favorite_users)
   end
 
   def new
